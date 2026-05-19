@@ -1,5 +1,9 @@
 ﻿# HW2 Airflow + Spark
 
+
+![Airflow](screenshot1.png)
+![Spark](screenshot2.png)
+
 ## Логика DAG
 
 `hw2_spark_dag` состоит из трех шагов:
