@@ -1,5 +1,8 @@
 ﻿# HW1 Airflow
 
+![screenshot](screenshot.png)
+
+
 DAG делает:
 1. Генерирует тестовый набор чисел
 2. Считает базовые метрики (sum, avg, min, max)
