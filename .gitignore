@@ -1,0 +1,13 @@
+﻿.env
+__pycache__/
+*.pyc
+logs/*
+plugins/*
+reports/*
+spark-logs/master/*
+spark-logs/worker/*
+!logs/.gitkeep
+!plugins/.gitkeep
+!reports/.gitkeep
+!spark-logs/master/.gitkeep
+!spark-logs/worker/.gitkeep
