@@ -1,0 +1,8 @@
+﻿services:
+  hw3_app:
+    image: hw3-app:latest
+    build: .
+    container_name: hw3_app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"

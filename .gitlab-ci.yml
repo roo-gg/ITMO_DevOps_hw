@@ -1,0 +1,61 @@
+workflow:
+  rules:
+    - when: always
+
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  APP_IMAGE: "hw3-app:ci"
+
+default:
+  tags:
+    - hw3-runner
+
+test-structure:
+  stage: test
+  image: alpine:3.20
+  script:
+    - test -d dags
+    - test -d spark
+    - test -f Dockerfile
+    - test -f docker-compose.yml
+    - echo "Synthetic test passed"
+
+build-image:
+  stage: build
+  image: alpine:3.20
+  script:
+    - test -f Dockerfile
+    - echo "Build stage passed"
+  rules:
+    - if: '$CI_COMMIT_BRANCH =~ /^feature\//'
+      when: manual
+      allow_failure: true
+    - when: on_success
+
+deploy-service:
+  stage: deploy
+  image: alpine:3.20
+  script:
+    - test -f docker-compose.yml
+    - echo "Deploy stage passed for allowed branch"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: on_success
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: on_success
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+      when: on_success
+    - when: never
+
+clear-service:
+  stage: deploy
+  image: alpine:3.20
+  script:
+    - echo "Manual clear stage"
+  rules:
+    - when: manual
+      allow_failure: true
